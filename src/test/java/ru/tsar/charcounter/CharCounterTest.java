@@ -3,70 +3,57 @@ package ru.tsar.charcounter;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CharCounterTest {
-	private CharCounter counter;
-	private CharCountResult actual;
-	private CharCountResult expected;
-	private WordCash cash;
+	private Counter counter;
+	private LinkedHashMap<Character, Integer> actual;
+	private LinkedHashMap<Character, Integer> expected;
 
 	@BeforeEach
 	void setUp() {
-		counter = new CharCounter();
-		actual = new CharCountResult();
-		expected = new CharCountResult();
-		cash = new WordCash();
+		counter = new Counter();
+		actual = new LinkedHashMap<Character, Integer>();
+		expected = new LinkedHashMap<Character, Integer>();
+
 	}
 
 	@Test
 	void givenNullString_whenCharCount_thenthenIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> counter.count(null, cash));
-	}
-
-	@Test
-	void givenNullCash_whenCharCount_thenthenIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> counter.count("hello", null));
+		assertThrows(IllegalArgumentException.class, () -> counter.getResult(null));
 	}
 
 	@Test
 	void givenString_whenCharCount_thenNumberOfUniqueCharacters() {
 
-		actual = counter.count("hello world!", cash);
-		Map<Character, Integer> charMap = new LinkedHashMap<>();
-		charMap.put('h', 1);
-		charMap.put('e', 1);
-		charMap.put('l', 3);
-		charMap.put('o', 2);
-		charMap.put(' ', 1);
-		charMap.put('w', 1);
-		charMap.put('r', 1);
-		charMap.put('d', 1);
-		charMap.put('!', 1);
-		expected.setResult(charMap, "hello world!");
+		actual = counter.getResult("hello world!");
+		expected.put('h', 1);
+		expected.put('e', 1);
+		expected.put('l', 3);
+		expected.put('o', 2);
+		expected.put(' ', 1);
+		expected.put('w', 1);
+		expected.put('r', 1);
+		expected.put('d', 1);
+		expected.put('!', 1);
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	void givenStringAndCash_whenCharCount_thenNumberOfUniqueCharacters() {
+		WordCaching cash = new WordCaching(counter);
 
-		Map<Character, Integer> charMap = new LinkedHashMap<>();
-		charMap.put('h', 1);
-		charMap.put('e', 1);
-		charMap.put('l', 3);
-		charMap.put('o', 2);
-		charMap.put(' ', 1);
-		charMap.put('w', 1);
-		charMap.put('r', 1);
-		charMap.put('d', 1);
-		charMap.put('!', 1);
-		expected.setResult(charMap, "hello world!");
-		cash.addToCash("hello world!", expected);
-		actual = counter.count("hello world!", cash);
+		actual = cash.getResult("hello world!");
+		expected.put('h', 1);
+		expected.put('e', 1);
+		expected.put('l', 3);
+		expected.put('o', 2);
+		expected.put(' ', 1);
+		expected.put('w', 1);
+		expected.put('r', 1);
+		expected.put('d', 1);
+		expected.put('!', 1);
 		assertEquals(expected, actual);
 	}
-
 }

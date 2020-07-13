@@ -3,8 +3,6 @@ package ru.tsar.charcounter;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 
 class FormatterTest {
@@ -13,14 +11,13 @@ class FormatterTest {
 
 	@Test
 	void givenNullString_whenCharCount_thenthenIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> Formatter.formattingResult(null));
+		assertThrows(IllegalArgumentException.class, () -> Main.format(null, null));
 	}
 
 	@Test
 	void givenString_whenCharCount_thenNumberOfUniqueCharacters() {
 
-		CharCountResult result = new CharCountResult();
-		Map<Character, Integer> charMap = new LinkedHashMap<>();
+		LinkedHashMap<Character, Integer> charMap = new LinkedHashMap<>();
 		charMap.put('h', 1);
 		charMap.put('e', 1);
 		charMap.put('l', 3);
@@ -30,8 +27,8 @@ class FormatterTest {
 		charMap.put('r', 1);
 		charMap.put('d', 1);
 		charMap.put('!', 1);
-		result.setResult(charMap, "hello world!");
-		actual = Formatter.formattingResult(result);
+
+		actual = Main.format(charMap, "hello world!");
 		expected = "hello world!" + System.lineSeparator() + "\"h\"" + " - " + "1" + System.lineSeparator() + "\"e\""
 				+ " - " + "1" + System.lineSeparator() + "\"l\"" + " - " + "3" + System.lineSeparator() + "\"o\""
 				+ " - " + "2" + System.lineSeparator() + "\" \"" + " - " + "1" + System.lineSeparator() + "\"w\""
@@ -39,5 +36,4 @@ class FormatterTest {
 				+ " - " + "1" + System.lineSeparator() + "\"!\"" + " - " + "1" + System.lineSeparator();
 		assertEquals(expected, actual);
 	}
-
 }
