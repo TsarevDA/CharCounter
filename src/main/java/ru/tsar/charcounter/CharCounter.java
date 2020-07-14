@@ -1,7 +1,7 @@
 package ru.tsar.charcounter;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public interface CharCounter {
-	public LinkedHashMap<Character, Integer> getResult(String string);
+	public Map<Character, Integer> countChars(String string);
 }

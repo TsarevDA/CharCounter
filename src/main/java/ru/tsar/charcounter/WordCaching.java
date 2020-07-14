@@ -6,23 +6,21 @@ import java.util.Map;
 
 public class WordCaching extends Decorator {
 
-	public Map<String, LinkedHashMap<Character, Integer>> cach;
+	public Map<String, Map<Character, Integer>> cache;
 
 	protected WordCaching(CharCounter charCounter) {
 		super(charCounter);
-		cach = new HashMap<String, LinkedHashMap<Character, Integer>>();
+		cache = new HashMap<String, Map<Character, Integer>>();
 	}
-
+	
 	@Override
-	public LinkedHashMap<Character, Integer> getResult(String string) {
-		if (cach.containsKey(string)) {
-			return cach.get(string);
-		} else {
-			Counter counter = new Counter();
-			LinkedHashMap<Character, Integer> result = new LinkedHashMap<Character, Integer>();
-			result = counter.getResult(string);
-			cach.put(string, result);
-			return result;
+	public LinkedHashMap<Character, Integer> countChars(String string) {
+		if (string == null ) {
+			throw new IllegalArgumentException("String or cash cant't be null");
 		}
+	
+		cache.computeIfAbsent(string, value-> charCounter.countChars(string));
+		return (LinkedHashMap<Character, Integer>) cache.get(string);
 	}
+	
 }

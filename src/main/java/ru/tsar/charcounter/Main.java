@@ -6,14 +6,13 @@ import java.util.Map;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Counter counter = new Counter();
 		WordCaching cash = new WordCaching(counter);
 
 		LinkedHashMap<Character, Integer> result = new LinkedHashMap<Character, Integer>();
-		result = cash.getResult("hello world!");
+		result = cash.countChars("hello world!");
 		System.out.println(format(result, "hello world!"));
-		result = cash.getResult("hello world!");
+		result = cash.countChars("hello world!");
 		System.out.println(format(result, "hello world!"));
 	}
 

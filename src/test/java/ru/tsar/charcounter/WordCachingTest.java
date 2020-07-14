@@ -3,20 +3,23 @@ package ru.tsar.charcounter;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedHashMap;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CharCounterTest {
+class WordCachingTest {
+	private WordCaching cache;
 	private Counter counter;
 
 	@BeforeEach
 	void setUp() {
 		counter = new Counter();
+		cache = new WordCaching(counter);
 	}
 
 	@Test
 	void givenNullString_whenCharCount_thenthenIllegalArgumentException() {
-		assertThrows(IllegalArgumentException.class, () -> counter.countChars(null));
+		assertThrows(IllegalArgumentException.class, () -> cache.countChars(null));
 	}
 
 	@Test
@@ -24,7 +27,7 @@ class CharCounterTest {
 		LinkedHashMap<Character, Integer> actual = new LinkedHashMap<Character, Integer>();
 		LinkedHashMap<Character, Integer> expected = new LinkedHashMap<Character, Integer>();
 
-		actual = counter.countChars("hello world!");
+		actual = cache.countChars("hello world!");
 		expected.put('h', 1);
 		expected.put('e', 1);
 		expected.put('l', 3);
