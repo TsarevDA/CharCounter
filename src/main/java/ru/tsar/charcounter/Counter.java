@@ -2,12 +2,13 @@ package ru.tsar.charcounter;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Counter implements CharCounter {
 
 	@Override
-	public LinkedHashMap<Character, Integer> countChars(String string) {
+	public Map<Character, Integer> countChars(String string) {
 		if (string == null) {
 			throw new IllegalArgumentException("String or cash cant't be null");
 		}

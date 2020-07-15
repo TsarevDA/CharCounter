@@ -14,13 +14,12 @@ public class WordCaching extends Decorator {
 	}
 	
 	@Override
-	public LinkedHashMap<Character, Integer> countChars(String string) {
+	public Map<Character, Integer> countChars(String string) {
 		if (string == null ) {
 			throw new IllegalArgumentException("String or cash cant't be null");
 		}
 	
-		cache.computeIfAbsent(string, value-> charCounter.countChars(string));
-		return (LinkedHashMap<Character, Integer>) cache.get(string);
+		return (LinkedHashMap<Character, Integer>)cache.computeIfAbsent(string, value-> charCounter.countChars(string));
 	}
 	
 }

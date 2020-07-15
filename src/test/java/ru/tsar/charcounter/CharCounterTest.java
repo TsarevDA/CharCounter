@@ -3,6 +3,8 @@ package ru.tsar.charcounter;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +23,8 @@ class CharCounterTest {
 
 	@Test
 	void givenString_whenCharCount_thenNumberOfUniqueCharacters() {
-		LinkedHashMap<Character, Integer> actual = new LinkedHashMap<Character, Integer>();
-		LinkedHashMap<Character, Integer> expected = new LinkedHashMap<Character, Integer>();
+		Map<Character, Integer> actual = new LinkedHashMap<Character, Integer>();
+		Map<Character, Integer> expected = new LinkedHashMap<Character, Integer>();
 
 		actual = counter.countChars("hello world!");
 		expected.put('h', 1);
